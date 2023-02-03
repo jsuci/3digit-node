@@ -1,0 +1,23 @@
+{
+  "name": "3digit-node",
+  "version": "1.0.0",
+  "description": "Get 3-digit lottery results using NodeJs and Puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/jsuci/3digit-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsuci/3digit-node/issues"
+  },
+  "homepage": "https://github.com/jsuci/3digit-node#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "puppeteer": "^19.6.3"
+  }
+}
