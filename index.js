@@ -28,7 +28,7 @@ const url2 = 'https://www.pinoyswertres.com/swertres-result-history-';
   const page = await browser.newPage();
 
   const currentYear = new Date().getFullYear();
-  let startYear = 2021;
+  let startYear = 2020;
 
   if (!arg1) {
     startYear = currentYear;
@@ -52,8 +52,13 @@ const url2 = 'https://www.pinoyswertres.com/swertres-result-history-';
       return Array.from(document.querySelectorAll('tr')).slice(1)
         .map(tr => {
           const tdArray = Array.from(tr.children).map(td => td.innerText);
+          const dateString = tdArray[0];
+          const date = new Date(dateString);
+          // const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+          const formattedDate = date.toLocaleDateString('default', { month: 'short', day: '2-digit', year: 'numeric' });
+          
           return {
-            date: `'${tdArray[0]}'`,
+            date: `'${formattedDate}'`,
             twoPM: `'${tdArray[1]}'`,
             fourPM: `'${tdArray[2]}'`,
             ninePM: `'${tdArray[3]}'`,
