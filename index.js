@@ -87,11 +87,13 @@ const url2 = 'https://www.pinoyswertres.com/swertres-result-history-';
       // console.log(data)
 
       // Check if the data already exists in the existing data
-      const existingDataIndex = existingData.findIndex(existingData => existingData.date === data.date && existingData.twoPM === data.twoPM);
+      const existingDataIndex = existingData.findIndex(existingData => existingData.date === data.date);
 
       // If the data exists, replace it with the new data
       if (existingDataIndex !== -1) {
-        existingData[existingDataIndex] = data;
+        if (existingData[existingDataIndex] === '*' || existingData[existingDataIndex].datatwoPM === data.twoPM) {
+          existingData[existingDataIndex] = data;
+        }
       }
       // If the data doesn't exist, add it to the existing data
       else {
