@@ -91,8 +91,12 @@ const url2 = 'https://www.pinoyswertres.com/swertres-result-history-';
 
       // If the data exists, replace it with the new data
       if (existingDataIndex !== -1) {
-        if (existingData[existingDataIndex].twoPM === `'*'`) {
-          existingData[existingDataIndex] = data;
+        if (
+            existingData[existingDataIndex].twoPM === `'*'`
+            || existingData[existingDataIndex].fourPM === `'*'`
+            || existingData[existingDataIndex].ninePM === `'*'`
+          ) {
+            existingData[existingDataIndex] = data;
         }
       }
       // If the data doesn't exist, add it to the existing data
