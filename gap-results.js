@@ -29,8 +29,7 @@ async function getGapResults(gap) {
           gapCounter += 1;
 
         }
-
-
+        
         resolve({ gap, results });
 
       })
@@ -42,6 +41,12 @@ async function getGapResults(gap) {
 
 
 (async () => {
-  const { gap, results } = await getGapResults(10);
-  console.log({ gap, results });
+
+  const output = []
+  for (let i = 1; i <= 10; i++) {
+    const {gap, results} = await getGapResults(i);
+    output.push({gap, results});
+  }
+
+  console.log(output)
 })(); 
