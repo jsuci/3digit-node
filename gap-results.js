@@ -56,7 +56,7 @@ async function getGapResults(gap) {
   });
 }
 
-async function processArray(arr) {
+async function processArray(gap, arr) {
   try {
     const res1 = [...arr[0].split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
     const res2 = [...arr[1].split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
@@ -72,11 +72,26 @@ async function processArray(arr) {
       const result = p1.filter(num => p2.includes(num) && p3.includes(num));
 
       if (result.length != 0) {
-        console.log(result)
-        console.log(res1[1], res1[2], res1[3])
-        console.log(res2[1], res2[2], res2[3])
-        console.log(res3[1], res3[2], res3[3])
-        console.log('\n')
+        const arr1 = res1.slice(1,res1.length)
+        const arr3 = res3.slice(1,res3.length)
+
+        for (let i = 0; i < arr1.length; i++) {
+          for (let j = 0; j < arr3.length; j++) {
+
+            const s1 = arr1[i].split('').sort().join('')
+            const s3 = arr3[j].split('').sort().join('')
+
+            if (s1 === s3) {
+              console.log('gap:', gap)
+              console.log('pair:', result)
+              console.log(res1)
+              console.log(res2)
+              console.log(res3)
+              console.log('\n')
+            }
+          }
+        }
+
       }
       
     };
@@ -91,12 +106,9 @@ async function processArray(arr) {
 
 (async () => {
 
-  // const output = []
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= 300; i++) {
     const {gap: gap, results: res} = await getGapResults(i);
-    processArray(res)
-    // output.push({gap, res});
+    processArray(gap, res)
   }
 
-  // console.log(output)
 })(); 
