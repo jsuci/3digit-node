@@ -58,26 +58,30 @@ async function getGapResults(gap) {
 
 async function processArray(arr) {
   try {
-    console.log(arr)
-    // for (const str of arr) {
-    //   const [date, n1, n2, n3] = [...str.split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
+    const res1 = [...arr[0].split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
+    const res2 = [...arr[1].split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
+    const res3 = [...arr[2].split(`'',''`)].map((e) => e.replace(/(['"])(.*?)/g, ""));
+    
+    // check for 'N/D'
+    const hasND = [res1, res2, res3].some(arr => arr.includes('N/D'));
+
+    if (!hasND) {
+      const p1 = Array.from(new Set([res1[1], res1[2], res1[3]].map(e => generatePermutations(e)).flat()));
+      const p2 = Array.from(new Set([res2[1], res2[2], res2[3]].map(e => generatePermutations(e)).flat()));
+      const p3 = Array.from(new Set([res3[1], res3[2], res3[3]].map(e => generatePermutations(e)).flat()));
+      const result = p1.filter(num => p2.includes(num) && p3.includes(num));
+
+      if (result.length != 0) {
+        console.log(result)
+        console.log(res1[1], res1[2], res1[3])
+        console.log(res2[1], res2[2], res2[3])
+        console.log(res3[1], res3[2], res3[3])
+        console.log('\n')
+      }
       
-    //   // exclude N/D (no draws)
-    //   if (!n1.includes('N/D')) {
-    //     const [p1, p2, p3] = [n1, n2, n3].map(e => generatePermutations(e))
-    //     const result = p1.filter(num => p2.includes(num) && p3.includes(num));
-
-    //     if (result.length != 0) {
-    //       // sort results
-    //       const [s1, s2, s3] = [n1, n2, n3].map(e => e.split('').sort().join(''))
-
-    //       // check for duplicate results on n1 and n3
-    //       console.log(s1, s3)
-    //     }
-    //   }
-
-    // }
-  } catch (error) {
+    };
+  }
+  catch (error) {
     console.error(error);
   }
 }
@@ -88,7 +92,7 @@ async function processArray(arr) {
 (async () => {
 
   // const output = []
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 50; i++) {
     const {gap: gap, results: res} = await getGapResults(i);
     processArray(res)
     // output.push({gap, res});
