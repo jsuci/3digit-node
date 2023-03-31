@@ -33,6 +33,9 @@ async function getGapResults(gap) {
         let gapCounter = 0;
         let row;
 
+        // skip the first empty results
+        rows.shift()
+
         while (true) {
           if (results.length === 3) {
             break
@@ -101,12 +104,14 @@ async function processArray(gap, arr) {
   }
 }
 
-
-
-
 (async () => {
 
-  for (let i = 1; i <= 300; i++) {
+  const date = new Date();
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-US', options).toUpperCase();
+  console.log(formattedDate);
+
+  for (let i = 1; i <= 100; i++) {
     const {gap: gap, results: res} = await getGapResults(i);
     processArray(gap, res)
   }
